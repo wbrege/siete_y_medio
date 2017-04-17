@@ -1,0 +1,1 @@
+Siete y medio, a spanish equivalent of blackjack

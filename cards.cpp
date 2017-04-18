@@ -43,6 +43,41 @@ Card::Card(){
         case 10: rank = REY; break;
         default: break;
     }
+    
+    //Set the value of the card
+    switch (rank) {
+        case AS:
+            dblValue = 2;
+            break;
+        case DOS:
+            dblValue = 4;
+            break;
+        case TRES:
+            dblValue = 6;
+            break;
+        case CUATRO:
+            dblValue = 8;
+            break;
+        case CINCO:
+            dblValue = 10;
+            break;
+        case SEIS:
+            dblValue = 12;
+            break;
+        case SIETE:
+            dblValue = 14;
+            break;
+        case SOTA:
+            dblValue = 1;
+            break;
+        case CABALLO:
+            dblValue = 1;
+            break;
+        case REY:
+            dblValue = 1;
+            break;
+        default: break;
+    }
 }
 
 // Accessor: returns a string with the suit of the card in Spanish
@@ -108,15 +143,65 @@ std::string Card::get_spanish_rank() const {
 
 
 // Accessor: returns a string with the suit of the card in English
-// This is just a stub! Modify it to your liking.
+// Code adapted from "get_spanish_suit"
 std::string Card::get_english_suit() const {
-    return "";
+    std::string suitName;
+    switch (suit) {
+        case OROS:
+            suitName = "coins";
+            break;
+        case COPAS:
+            suitName = "cups";
+            break;
+        case ESPADAS:
+            suitName = "spades";
+            break;
+        case BASTOS:
+            suitName = "clubs";
+            break;
+        default: break;
+    }
+    return suitName;
 }
 
 // Accessor: returns a string with the rank of the card in English
-// This is just a stub! Modify it to your liking.
+// Code adapted from "get_spanish_rank"
 std::string Card::get_english_rank() const {
-    return "";
+    std::string rankName;
+    switch (rank) {
+        case AS:
+            rankName = "Ace";
+            break;
+        case DOS:
+            rankName = "Two";
+            break;
+        case TRES:
+            rankName = "Three";
+            break;
+        case CUATRO:
+            rankName = "Four";
+            break;
+        case CINCO:
+            rankName = "Five";
+            break;
+        case SEIS:
+            rankName = "Six";
+            break;
+        case SIETE:
+            rankName = "Seven";
+            break;
+        case SOTA:
+            rankName = "Jack";
+            break;
+        case CABALLO:
+            rankName = "Knight";
+            break;
+        case REY:
+            rankName = "King";
+            break;
+        default: break;
+    }
+    return rankName;
 }
 
 
@@ -125,7 +210,17 @@ std::string Card::get_english_rank() const {
 // AS=1, DOS=2, ..., SIETE=7, SOTA=10, CABALLO=11, REY=12
 int Card::get_rank() const {
     return static_cast<int>(rank) + 1 ;
+    return static_cast<int>(rank) + 2 ;
+    return static_cast<int>(rank) + 3 ;
+    return static_cast<int>(rank) + 4 ;
+    return static_cast<int>(rank) + 5 ;
+    return static_cast<int>(rank) + 6 ;
+    return static_cast<int>(rank) + 7 ;
+    return static_cast<int>(rank) + 10 ;
+    return static_cast<int>(rank) + 11 ;
+    return static_cast<int>(rank) + 12 ;
 }
+
 
 // Comparison operator for cards
 // Returns TRUE if card1 < card2

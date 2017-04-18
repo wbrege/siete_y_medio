@@ -33,12 +33,6 @@ public:
     // Accessors
     std::string get_spanish_suit() const;
     std::string get_spanish_rank() const;
-    
-    /*
-     These are the only functions you'll need to code
-     for this class. See the implementations of the two
-     functions above to get an idea of how to proceed.
-     */
     std::string get_english_suit() const;
     std::string get_english_rank() const;
     
@@ -54,6 +48,7 @@ public:
 private:
     suit_t suit;
     rank_t rank;
+    int dblValue; //For accurate compairons I don't want the value of the card to be a double, so instead it's double the value
 };
 
 

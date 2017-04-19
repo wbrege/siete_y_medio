@@ -235,7 +235,35 @@ bool Card::operator < (Card card2) const {
  ************************************************* */
 // Implemente the member functions of the Hand class here.
 
+//Default constructor, nothing needed
+Hand::Hand(){
+}
 
+//Enters a new card to the hand
+void Hand::push_back(Card newCard){
+    cards.push_back(newCard);
+    return;
+}
+
+//Returns double the total value of the cards in the hand
+int Hand::getTotal(){
+    int total = 0;
+    
+    for(int i = 0, n = cards.size(); i < n; ++i){
+        total += cards[i].dblValue;
+    }
+    
+    return total;
+}
+
+//Prints all the Cards in the hand
+void Hand::printCards(){
+    for(int i = 0, n = cards.size(); i < n; ++i){
+        std::cout << "      " << cards[i].get_spanish_rank() << " de " << cards[i].get_spanish_suit() << "      (" << cards[i].get_english_rank() << " of " << cards[i].get_english_suit() << ")" << std::endl;
+    }
+    
+    return;
+}
 
 /* *************************************************
  Player class

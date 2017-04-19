@@ -26,6 +26,7 @@ enum suit_t {OROS, COPAS, ESPADAS, BASTOS};
 enum rank_t {AS, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, SOTA=9, CABALLO=10, REY=11};
 
 class Card {
+    friend class Hand;
 public:
     // Constructor assigns random rank & suit to card.
     Card();
@@ -56,14 +57,17 @@ class Hand {
 public:
     // A vector of Cards
     Hand();
+    void push_back(Card);
+    int getTotal();
+    void printCards();
     
     // You decide what functions you'll need...
     
 private:
-    // You decide what fields you'll need...
+    std::vector<Card> cards;
 };
 
-
+/*
 class Player {
 public:
     // Constructor.
@@ -76,5 +80,5 @@ private:
     int money;
     // You decide what extra fields (if any) you'll need...
 };
-
+*/
 #endif

@@ -269,3 +269,28 @@ void Hand::printCards(){
  Player class
  ************************************************* */
 // Implemente the member functions of the Player class here.
+
+Player::Player(int m){
+    money = m;
+}
+
+// Returns the amount of money held by the player
+int Player::checkMoney(){
+    return money;
+}
+
+// Alters the amount of money held by the player
+void Player::changeMoney(int m){
+    money += m;
+    return;
+}
+
+// Checks if the player is bankrupt
+bool Player::isBankrupt(){
+    if(money <= 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}

@@ -15,10 +15,8 @@
 #include "cards.h"
 
 int main() {
-    bool playing = true, dealing = true;
-    int playerMoney = 100, dealerMoney = 900, bet = 0;
-    double playerTotal = 0, dealerTotal = 0;
-    char response;
+    bool playing = true;
+    Player user(100), dealer(900);
     
     while(playing == true){
         std::cout << "You have $" << playerMoney << ". Enter bet: ";

@@ -72,7 +72,10 @@ class Player {
 public:
     // Constructor.
     //    Assigns initial amount of money
-    Player(int m);
+    Player(int);
+    int checkMoney();
+    void changeMoney(int);
+    bool isBankrupt();
     
     // You decide what functions you'll need...
     

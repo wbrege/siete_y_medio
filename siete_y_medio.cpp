@@ -16,6 +16,7 @@
 
 int main() {
     bool playing = true;
+    Player user(100), dealer(900);
     
     
     while(playing == true){

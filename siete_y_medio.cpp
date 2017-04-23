@@ -15,15 +15,20 @@
 #include "cards.h"
 
 int main() {
-    bool playing = true;
+    bool playing = true, dealing = true;
     Player user(100), dealer(900);
+    int bet;
+    double playerTotal;
+    char response;
+    
+    srand(time(nullptr));
     
     while(playing == true){
-        std::cout << "You have $" << playerMoney << ". Enter bet: ";
+        std::cout << "You have $" << user.checkMoney() << ". Enter bet: ";
         std::cin >> bet;
         //Check if valid bet size
-        if(bet > playerMoney){
-            bet = playerMoney;
+        if(bet > user.checkMoney()){
+            bet = user.checkMoney();
         }
         
         //Deal to player
@@ -33,13 +38,18 @@ int main() {
         while(dealing == true){
             std::cout << "Your cards:" << std::endl;
             playerHand.printCards();
-            playerTotal = playerHand.getTotal()/2;
+            playerTotal = playerHand.getTotal()/2.;
             std::cout << "Your total is " << playerTotal << ". Do you want another card (y/n)? ";
             std::cin >> response;
             if(response == 'n'){
                 dealing = false;
+                break;
             }
+            Card newCard;
+            playerHand.push_back(newCard);
         }
+        
+        
         
     }
     

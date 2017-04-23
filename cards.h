@@ -67,7 +67,7 @@ private:
     std::vector<Card> cards;
 };
 
-/*
+
 class Player {
 public:
     // Constructor.
@@ -83,5 +83,5 @@ private:
     int money;
     // You decide what extra fields (if any) you'll need...
 };
-*/
+
 #endif

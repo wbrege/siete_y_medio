@@ -18,7 +18,7 @@ int main() {
     bool playing = true;
     Player user(100), dealer(900);
     int bet;
-    double playerTotal;
+    double playerTotal, dealerTotal;
     char response;
     
     srand(time(nullptr));
@@ -67,6 +67,43 @@ int main() {
             }
         }
         
+        //Dealing prep
+        dealing = true;
+        Hand dealerHand;
+        Card firstDealerCard;
+        dealerHand.push_back(firstDealerCard);
+        
+        //Deal to the Dealer
+        while(dealing == true){
+            std::cout << "Dealer's cards:" << std::endl;
+            dealerHand.printCards();
+            dealerTotal = dealerHand.getTotal()/2.;
+            std::cout << "The Dealer's total is " << dealerTotal;
+            //Check response
+            if(dealerHand.getTotal() >= 11){
+                dealing = false;
+                break;
+            }
+            Card newCard;
+            dealerHand.push_back(newCard);
+            
+            //Check if over 7.5
+            if(dealerHand.getTotal() >= 15){
+                std::cout << "Dealer's cards:" << std::endl;
+                dealerHand.printCards();
+                dealerTotal = dealerHand.getTotal()/2.;
+                std::cout << "Dealer's total is " << dealerTotal << std::endl;
+                std::cout << "You win " << bet;
+                dealer.changeMoney(-bet);
+                user.changeMoney(bet);
+                if(dealer.isBankrupt()){
+                    dealing = false;
+                    playing = false;
+                    std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                    return 0;
+                }
+            }
+        }
         
         
     }

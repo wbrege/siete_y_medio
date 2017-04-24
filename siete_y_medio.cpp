@@ -24,7 +24,7 @@ int main() {
     srand(time(nullptr));
     
     while(playing == true){
-        bool dealing = true;
+        bool dealing = true, keepDealing = true;
         std::cout << "You have $" << user.checkMoney() << ". Enter bet: ";
         std::cin >> bet;
         //Check if valid bet size
@@ -56,8 +56,11 @@ int main() {
                 playerHand.printCards();
                 playerTotal = playerHand.getTotal()/2.;
                 std::cout << "Your total is " << playerTotal << std::endl;
-                std::cout << "Too bad. You lose " << bet;
+                std::cout << "Too bad. You lose " << bet << std::endl;
                 user.changeMoney(-bet);
+                dealer.changeMoney(bet);
+                dealing = false;
+                keepDealing = false;
                 if(user.isBankrupt()){
                     dealing = false;
                     playing = false;
@@ -68,20 +71,19 @@ int main() {
         }
         
         //Dealing prep
-        dealing = true;
         Hand dealerHand;
         Card firstDealerCard;
         dealerHand.push_back(firstDealerCard);
         
         //Deal to the Dealer
-        while(dealing == true){
+        while(keepDealing == true){
             std::cout << "Dealer's cards:" << std::endl;
             dealerHand.printCards();
             dealerTotal = dealerHand.getTotal()/2.;
-            std::cout << "The Dealer's total is " << dealerTotal;
+            std::cout << "The Dealer's total is " << dealerTotal << std::endl;
             //Check response
             if(dealerHand.getTotal() >= 11){
-                dealing = false;
+                keepDealing = false;
                 break;
             }
             Card newCard;
@@ -93,11 +95,12 @@ int main() {
                 dealerHand.printCards();
                 dealerTotal = dealerHand.getTotal()/2.;
                 std::cout << "Dealer's total is " << dealerTotal << std::endl;
-                std::cout << "You win " << bet;
+                std::cout << "You win " << bet << std::endl;
                 dealer.changeMoney(-bet);
                 user.changeMoney(bet);
+                keepDealing = false;
                 if(dealer.isBankrupt()){
-                    dealing = false;
+                    keepDealing = false;
                     playing = false;
                     std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
                     return 0;
@@ -105,6 +108,35 @@ int main() {
             }
         }
         
+        //Compare hands
+        //Player Wins
+        if(playerHand.getTotal() <= 15 && playerHand.getTotal() > dealerHand.getTotal()){
+            std::cout << "You win " << bet << std::endl;
+            dealer.changeMoney(-bet);
+            user.changeMoney(bet);
+            if(dealer.isBankrupt()){
+                dealing = false;
+                playing = false;
+                std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                return 0;
+            }
+        }
+        //Draw
+        else if(playerHand.getTotal() <= 15 && playerHand.getTotal() == dealerHand.getTotal()){
+            std::cout << "You draw! Try again!" << std::endl;
+        }
+        //Dealer wins
+        else if(dealerHand.getTotal() <= 15 && dealerHand.getTotal() > playerHand.getTotal()){
+            std::cout << "Too bad. You lose " << bet << std::endl;
+            user.changeMoney(-bet);
+            dealer.changeMoney(bet);
+            if(user.isBankrupt()){
+                dealing = false;
+                playing = false;
+                std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                return 0;
+            }
+        }
         
     }
     

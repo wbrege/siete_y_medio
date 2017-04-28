@@ -51,7 +51,7 @@ int main() {
             playerHand.push_back(newCard);
             
             //Check if over 7.5
-            if(playerHand.getTotal() >= 15){
+            if(playerHand.getTotal() > 15){
                 std::cout << "Your cards:" << std::endl;
                 playerHand.printCards();
                 playerTotal = playerHand.getTotal()/2.;
@@ -90,7 +90,7 @@ int main() {
             dealerHand.push_back(newCard);
             
             //Check if over 7.5
-            if(dealerHand.getTotal() >= 15){
+            if(dealerHand.getTotal() > 15){
                 std::cout << "Dealer's cards:" << std::endl;
                 dealerHand.printCards();
                 dealerTotal = dealerHand.getTotal()/2.;

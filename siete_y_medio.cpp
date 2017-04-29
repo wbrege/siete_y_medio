@@ -24,12 +24,13 @@ int main() {
     
     //Beginning captain's log
     output.open("gamelog.txt");
-    output << "-------------------------------------" << std::endl << std::endl;
-    output << "Game number: " << gameCounter << "           Money Left: $" << user.checkMoney() << std::endl;
     
     srand(time(nullptr));
     
     while(playing == true){
+        output << "-------------------------------------" << std::endl << std::endl;
+        output << "Game number: " << gameCounter << "           Money Left: $" << user.checkMoney() << std::endl;
+        
         bool dealing = true, keepDealing = true;
         std::cout << "You have $" << user.checkMoney() << ". Enter bet: ";
         std::cin >> bet;
@@ -72,6 +73,8 @@ int main() {
                     dealing = false;
                     playing = false;
                     std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                    output << "-------------------------------------";
+                    output.close();
                     return 0;
                 }
             }
@@ -81,6 +84,7 @@ int main() {
         output << "Bet: " << bet << std::endl <<std::endl;
         output << "Your cards:" << std::endl;
         playerHand.logCards(output);
+        output << "Player total: " << playerHand.getTotal()/2. << std::endl << std::endl;
         
         //Dealing prep
         Hand dealerHand;
@@ -115,10 +119,17 @@ int main() {
                     keepDealing = false;
                     playing = false;
                     std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                    output << "-------------------------------------";
+                    output.close();
                     return 0;
                 }
             }
         }
+        
+        //Update Log
+        output << "Dealer's cards:" << std::endl;
+        dealerHand.logCards(output);
+        output << "Dealer's total: " << dealerHand.getTotal()/2. << std::endl << std::endl;
         
         //Compare hands
         //Player Wins
@@ -130,6 +141,8 @@ int main() {
                 dealing = false;
                 playing = false;
                 std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                output << "-------------------------------------";
+                output.close();
                 return 0;
             }
         }
@@ -146,13 +159,16 @@ int main() {
                 dealing = false;
                 playing = false;
                 std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                output << "-------------------------------------";
+                output.close();
                 return 0;
             }
         }
         
-        output.close();
         ++gameCounter;
     }
     
+    output << "-------------------------------------";
+    output.close();
     return 0;
 }

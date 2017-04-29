@@ -44,7 +44,6 @@ int main() {
             std::cin >> response;
             //Check response
             if(response == 'n'){
-                dealing = false;
                 break;
             }
             Card newCard;
@@ -62,8 +61,6 @@ int main() {
                 dealing = false;
                 keepDealing = false;
                 if(user.isBankrupt()){
-                    dealing = false;
-                    playing = false;
                     std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
                     return 0;
                 }
@@ -83,7 +80,6 @@ int main() {
             std::cout << "The Dealer's total is " << dealerTotal << std::endl;
             //Check response
             if(dealerHand.getTotal() >= 11){
-                keepDealing = false;
                 break;
             }
             Card newCard;
@@ -100,8 +96,6 @@ int main() {
                 user.changeMoney(bet);
                 keepDealing = false;
                 if(dealer.isBankrupt()){
-                    keepDealing = false;
-                    playing = false;
                     std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
                     return 0;
                 }
@@ -115,8 +109,6 @@ int main() {
             dealer.changeMoney(-bet);
             user.changeMoney(bet);
             if(dealer.isBankrupt()){
-                dealing = false;
-                playing = false;
                 std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
                 return 0;
             }
@@ -131,8 +123,6 @@ int main() {
             user.changeMoney(-bet);
             dealer.changeMoney(bet);
             if(user.isBankrupt()){
-                dealing = false;
-                playing = false;
                 std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
                 return 0;
             }

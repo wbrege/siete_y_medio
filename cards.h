@@ -55,13 +55,11 @@ private:
 
 class Hand {
 public:
-    // A vector of Cards
     Hand();
     void push_back(Card);
     int getTotal();
     void printCards();
-    
-    // You decide what functions you'll need...
+    void logCards(std::ofstream&);
     
 private:
     std::vector<Card> cards;
@@ -70,18 +68,13 @@ private:
 
 class Player {
 public:
-    // Constructor.
-    //    Assigns initial amount of money
     Player(int);
     int checkMoney();
     void changeMoney(int);
     bool isBankrupt();
     
-    // You decide what functions you'll need...
-    
 private:
     int money;
-    // You decide what extra fields (if any) you'll need...
 };
 
 #endif

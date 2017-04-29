@@ -18,16 +18,24 @@
 int main() {
     bool playing = true;
     Player user(100), dealer(900);
-    int bet;
+    int bet, gameCounter = 1;
     double playerTotal, dealerTotal;
     char response;
+    std::ofstream output;
+    
+    //Beginning captain's log
+    output.open("gamelog.txt");
     
     srand(time(nullptr));
     
     while(playing == true){
+        output << "-------------------------------------" << std::endl << std::endl;
+        output << "Game number: " << gameCounter << "           Money Left: $" << user.checkMoney() << std::endl;
+        
         bool dealing = true, keepDealing = true;
         std::cout << "You have $" << user.checkMoney() << ". Enter bet: ";
         std::cin >> bet;
+        
         //Check if valid bet size
         if(bet > user.checkMoney()){
             bet = user.checkMoney();
@@ -45,7 +53,6 @@ int main() {
             std::cin >> response;
             //Check response
             if(response == 'n'){
-                dealing = false;
                 break;
             }
             Card newCard;
@@ -63,13 +70,19 @@ int main() {
                 dealing = false;
                 keepDealing = false;
                 if(user.isBankrupt()){
-                    dealing = false;
-                    playing = false;
                     std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                    output << "-------------------------------------";
+                    output.close();
                     return 0;
                 }
             }
         }
+        
+        //Update Log
+        output << "Bet: " << bet << std::endl <<std::endl;
+        output << "Your cards:" << std::endl;
+        playerHand.logCards(output);
+        output << "Player total: " << playerHand.getTotal()/2. << std::endl << std::endl;
         
         //Dealing prep
         Hand dealerHand;
@@ -84,7 +97,6 @@ int main() {
             std::cout << "The Dealer's total is " << dealerTotal << std::endl;
             //Check response
             if(dealerHand.getTotal() >= 11){
-                keepDealing = false;
                 break;
             }
             Card newCard;
@@ -101,13 +113,18 @@ int main() {
                 user.changeMoney(bet);
                 keepDealing = false;
                 if(dealer.isBankrupt()){
-                    keepDealing = false;
-                    playing = false;
                     std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                    output << "-------------------------------------";
+                    output.close();
                     return 0;
                 }
             }
         }
+        
+        //Update Log
+        output << "Dealer's cards:" << std::endl;
+        dealerHand.logCards(output);
+        output << "Dealer's total: " << dealerHand.getTotal()/2. << std::endl << std::endl;
         
         //Compare hands
         //Player Wins
@@ -116,9 +133,9 @@ int main() {
             dealer.changeMoney(-bet);
             user.changeMoney(bet);
             if(dealer.isBankrupt()){
-                dealing = false;
-                playing = false;
                 std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                output << "-------------------------------------";
+                output.close();
                 return 0;
             }
         }
@@ -132,14 +149,17 @@ int main() {
             user.changeMoney(-bet);
             dealer.changeMoney(bet);
             if(user.isBankrupt()){
-                dealing = false;
-                playing = false;
                 std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                output << "-------------------------------------";
+                output.close();
                 return 0;
             }
         }
         
+        ++gameCounter;
     }
     
+    output << "-------------------------------------";
+    output.close();
     return 0;
 }

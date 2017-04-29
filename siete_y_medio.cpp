@@ -2,6 +2,7 @@
     @author William Brege
     ID: 704-482-379
     @date 04/16/2017
+    PIC 10C Assignment 1
  
     This program plays siete y medio with the user until either the player or the computer has run out of money
  */

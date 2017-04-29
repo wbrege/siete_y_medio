@@ -17,9 +17,15 @@
 int main() {
     bool playing = true;
     Player user(100), dealer(900);
-    int bet;
+    int bet, gameCounter = 1;
     double playerTotal, dealerTotal;
     char response;
+    std::ofstream output;
+    
+    //Beginning captain's log
+    output.open("gamelog.txt");
+    output << "-------------------------------------" << std::endl << std::endl;
+    output << "Game number: " << gameCounter << "           Money Left: $" << user.checkMoney() << std::endl;
     
     srand(time(nullptr));
     
@@ -27,6 +33,7 @@ int main() {
         bool dealing = true, keepDealing = true;
         std::cout << "You have $" << user.checkMoney() << ". Enter bet: ";
         std::cin >> bet;
+        
         //Check if valid bet size
         if(bet > user.checkMoney()){
             bet = user.checkMoney();
@@ -68,6 +75,10 @@ int main() {
                     return 0;
                 }
             }
+            
+            //Update Log
+            output << "Bet: " << bet << std::endl <<std::endl;
+            output << "Your cards:" << std::endl;
         }
         
         //Dealing prep
@@ -138,6 +149,8 @@ int main() {
             }
         }
         
+        output.close();
+        ++gameCounter;
     }
     
     return 0;

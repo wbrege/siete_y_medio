@@ -17,16 +17,24 @@
 int main() {
     bool playing = true;
     Player user(100), dealer(900);
-    int bet;
+    int bet, gameCounter = 1;
     double playerTotal, dealerTotal;
     char response;
+    std::ofstream output;
+    
+    //Beginning captain's log
+    output.open("gamelog.txt");
     
     srand(time(nullptr));
     
     while(playing == true){
+        output << "-------------------------------------" << std::endl << std::endl;
+        output << "Game number: " << gameCounter << "           Money Left: $" << user.checkMoney() << std::endl;
+        
         bool dealing = true, keepDealing = true;
         std::cout << "You have $" << user.checkMoney() << ". Enter bet: ";
         std::cin >> bet;
+        
         //Check if valid bet size
         if(bet > user.checkMoney()){
             bet = user.checkMoney();
@@ -62,10 +70,18 @@ int main() {
                 keepDealing = false;
                 if(user.isBankrupt()){
                     std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                    output << "-------------------------------------";
+                    output.close();
                     return 0;
                 }
             }
         }
+        
+        //Update Log
+        output << "Bet: " << bet << std::endl <<std::endl;
+        output << "Your cards:" << std::endl;
+        playerHand.logCards(output);
+        output << "Player total: " << playerHand.getTotal()/2. << std::endl << std::endl;
         
         //Dealing prep
         Hand dealerHand;
@@ -97,10 +113,17 @@ int main() {
                 keepDealing = false;
                 if(dealer.isBankrupt()){
                     std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                    output << "-------------------------------------";
+                    output.close();
                     return 0;
                 }
             }
         }
+        
+        //Update Log
+        output << "Dealer's cards:" << std::endl;
+        dealerHand.logCards(output);
+        output << "Dealer's total: " << dealerHand.getTotal()/2. << std::endl << std::endl;
         
         //Compare hands
         //Player Wins
@@ -110,6 +133,8 @@ int main() {
             user.changeMoney(bet);
             if(dealer.isBankrupt()){
                 std::cout << "Congratulations! You beat the casino!" << std::endl << std::endl << "Bye!";
+                output << "-------------------------------------";
+                output.close();
                 return 0;
             }
         }
@@ -124,11 +149,16 @@ int main() {
             dealer.changeMoney(bet);
             if(user.isBankrupt()){
                 std::cout << "You have $0. GAME OVER!" << std::endl << "Come back when you have more money!" << std::endl << std::endl << "Bye!";
+                output << "-------------------------------------";
+                output.close();
                 return 0;
             }
         }
         
+        ++gameCounter;
     }
     
+    output << "-------------------------------------";
+    output.close();
     return 0;
 }

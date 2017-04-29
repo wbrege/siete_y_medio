@@ -256,10 +256,19 @@ int Hand::getTotal(){
     return total;
 }
 
-//Prints all the Cards in the hand
+//Prints all the Cards in the hand to the console
 void Hand::printCards(){
     for(int i = 0, n = cards.size(); i < n; ++i){
         std::cout << "      " << cards[i].get_spanish_rank() << " de " << cards[i].get_spanish_suit() << "      (" << cards[i].get_english_rank() << " of " << cards[i].get_english_suit() << ")" << std::endl;
+    }
+    
+    return;
+}
+
+//Print all the Cards in the hand to the log
+void Hand::logCards(std::ofstream& output){
+    for(int i = 0, n = cards.size(); i < n; ++i){
+        output << "      " << cards[i].get_spanish_rank() << " de " << cards[i].get_spanish_suit() << "      (" << cards[i].get_english_rank() << " of " << cards[i].get_english_suit() << ")" << std::endl;
     }
     
     return;

@@ -75,11 +75,12 @@ int main() {
                     return 0;
                 }
             }
-            
-            //Update Log
-            output << "Bet: " << bet << std::endl <<std::endl;
-            output << "Your cards:" << std::endl;
         }
+        
+        //Update Log
+        output << "Bet: " << bet << std::endl <<std::endl;
+        output << "Your cards:" << std::endl;
+        playerHand.logCards(output);
         
         //Dealing prep
         Hand dealerHand;

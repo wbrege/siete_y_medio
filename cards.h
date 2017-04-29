@@ -59,7 +59,7 @@ public:
     void push_back(Card);
     int getTotal();
     void printCards();
-    
+    void logCards(std::ofstream&);
     
 private:
     std::vector<Card> cards;
